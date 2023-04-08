@@ -9,6 +9,14 @@ module.exports = {
 			next(error);
 		}
 	},
+	getJobDetail: async (req, res, next) => {
+		try {
+			const DTO = await chatgptService.getJobDetail(req.body);
+			res.status(DTO.statusCode).send(DTO);
+		} catch (error) {
+			next(error);
+		}
+	},
 	chat: async (req, res, next) => {
 		try {
 			let userID;
