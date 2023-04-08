@@ -127,6 +127,7 @@ module.exports = {
 				data: completion_text,
 			};
 		} catch (error) {
+			console.log(error);
 			throw new AppError(500, error.message);
 		}
 	},
