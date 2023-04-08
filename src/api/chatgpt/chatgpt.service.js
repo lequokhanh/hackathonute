@@ -44,6 +44,40 @@ module.exports = {
 			throw new AppError(500, error.message);
 		}
 	},
+	getJobDetail: async (body) => {
+		try {
+			const prePromptText =
+				"Hãy cho tôi mô tả công việc, khoảng lương và lộ trình để trở thành một ";
+			const completion = await openAI.post(
+				"/chat/completions",
+				{
+					model: "gpt-3.5-turbo",
+					messages: [
+						{
+							role: "user",
+							content: prePromptText + body.job,
+						},
+					],
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+					},
+				}
+			);
+
+			console.log(completion);
+			const completion_text = completion.data.choices[0].message.content;
+			return {
+				statusCode: 200,
+				message: "Get message completed",
+				data: completion_text,
+			};
+		} catch (error) {
+			throw new AppError(500, error.message);
+		}
+	},
 	chat: async ({ message, id }, userID) => {
 		try {
 			let messages = [];
