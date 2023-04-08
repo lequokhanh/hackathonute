@@ -11,7 +11,7 @@ app.use("/api", api);
 
 const corsConfig = {
 	credentials: true,
-	origin: "*",
+	origin: ["http://localhost:3000"],
 };
 
 app.use(cors(corsConfig));

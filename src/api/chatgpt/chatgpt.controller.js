@@ -18,4 +18,13 @@ module.exports = {
 			next(error);
 		}
 	},
+	confide: async (req, res, next) => {
+		try {
+			const message = req.body.message;
+			const DTO = await chatgptService.confide(message);
+			res.status(DTO.statusCode).send(DTO);
+		} catch (error) {
+			next(error);
+		}
+	},
 };
