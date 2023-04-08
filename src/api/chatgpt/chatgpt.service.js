@@ -85,7 +85,7 @@ module.exports = {
 							role: "user",
 							content:
 								message +
-								"hãy cho tôi lời khuyên dưới góc độ là 1 chuyên gia",
+								"hãy cho tôi lời khuyên dưới góc độ là 1 chuyên gia tâm lý",
 						},
 					],
 				},
