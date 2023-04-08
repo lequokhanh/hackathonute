@@ -45,4 +45,13 @@ module.exports = {
 			next(error);
 		}
 	},
+	getConservation: async (req, res, next) => {
+		try {
+			const userID = req.user._id;
+			const DTO = await chatgptService.getConservation(userID);
+			res.status(DTO.statusCode).send(DTO);
+		} catch (error) {
+			next(error);
+		}
+	},
 };

@@ -7,4 +7,5 @@ route.post("/chat", verifyToken, chatgptController.chat);
 route.post("/confide", verifyToken, chatgptController.confide);
 route.post("/solve", verifyToken, chatgptController.solve);
 route.post("/question", chatgptController.getQuestionRelated);
+route.get("/conservation", verifyToken, chatgptController.getConservation);
 module.exports = route;

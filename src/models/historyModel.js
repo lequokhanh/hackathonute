@@ -16,6 +16,11 @@ const historySchema = new Schema({
 			},
 		},
 	],
+	category: {
+		type: String,
+		enum: ["confide", "solve", "general"],
+		required: true,
+	},
 	user: {
 		type: Schema.Types.ObjectId,
 		ref: "User",

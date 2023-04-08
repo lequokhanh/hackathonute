@@ -86,6 +86,7 @@ module.exports = {
 								content: completion_text,
 							},
 						],
+						category: "chat",
 						user: userID,
 					});
 				else {
@@ -161,6 +162,7 @@ module.exports = {
 								content: completion_text,
 							},
 						],
+						category: "confide",
 						user: userID,
 					});
 				else {
@@ -279,6 +281,7 @@ module.exports = {
 								content: completion_text,
 							},
 						],
+						category: "solve",
 						user: userID,
 					});
 				else {
@@ -342,6 +345,18 @@ module.exports = {
 				statusCode: 200,
 				message: "Get message completed",
 				data: completion_text,
+			};
+		} catch (error) {
+			throw new AppError(500, error.message);
+		}
+	},
+	getConservation: async (id) => {
+		try {
+			const history = await historyModel.findById(id);
+			return {
+				statusCode: 200,
+				message: "Get message completed",
+				data: history.messages,
 			};
 		} catch (error) {
 			throw new AppError(500, error.message);
