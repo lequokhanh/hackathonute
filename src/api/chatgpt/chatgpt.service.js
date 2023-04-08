@@ -362,4 +362,19 @@ module.exports = {
 			throw new AppError(500, error.message);
 		}
 	},
+	getConservationByCategory: async (category, id) => {
+		try {
+			const history = await historyModel.findById(id);
+			const messages = history.messages.filter(
+				(message) => message.role === category
+			);
+			return {
+				statusCode: 200,
+				message: "Get message completed",
+				data: messages,
+			};
+		} catch (error) {
+			throw new AppError(500, error.message);
+		}
+	},
 };

@@ -47,8 +47,14 @@ module.exports = {
 	},
 	getConservation: async (req, res, next) => {
 		try {
+			const category = req.params.category;
 			const userID = req.user._id;
-			const DTO = await chatgptService.getConservation(userID);
+			const DTO = category
+				? await chatgptService.getConservationByCategory(
+						category,
+						userID
+				  )
+				: await chatgptService.getConservation(userID);
 			res.status(DTO.statusCode).send(DTO);
 		} catch (error) {
 			next(error);
