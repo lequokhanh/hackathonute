@@ -10,7 +10,7 @@ app.use(cors({
 	credentials: true,
 	origin: ["http://localhost:3000"],
 }));
-app.use(logger())
+app.use(logger("dev"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", api);
