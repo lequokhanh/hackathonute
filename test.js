@@ -3,7 +3,7 @@ const readlineSync = require("readline-sync");
 
 (async () => {
 	const configuration = new Configuration({
-		apiKey: "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",
+		apiKey: "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",
 	});
 	const openai = new OpenAIApi(configuration);
 
