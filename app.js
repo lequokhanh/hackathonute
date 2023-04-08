@@ -2,19 +2,34 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const api = require("./src/api");
+const mongoose = require("mongoose");
+
 require("dotenv").config();
 
 const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", api);
 
 const corsConfig = {
 	credentials: true,
 	origin: ["http://localhost:3000"],
 };
 
+const DB = process.env.DATABASE.replace(
+	"<USERNAME>",
+	process.env.DATABASE_USERNAME
+)
+	.replace("<PASSWORD>", process.env.DATABASE_PASSWORD)
+	.replace("<DB_NAME>", process.env.DATABASE_NAME);
+mongoose
+	.connect(DB, {
+		useUnifiedTopology: true,
+		useNewUrlParser: true,
+	})
+	.then(() => console.log("DB connection successful!"))
+	.catch((err) => console.log(err));
 app.use(cors(corsConfig));
+app.use("/api", api);
 app.use((error, req, res, next) => {
 	let { statusCode, message } = error;
 
