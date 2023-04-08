@@ -1,10 +1,9 @@
 const chatgptService = require("./chatgpt.service");
 
 module.exports = {
-	chat: async (req, res, next) => {
+	getJob: async (req, res, next) => {
 		try {
-			const { message } = req.body;
-			const DTO = await chatgptService.chat(message);
+			const DTO = await chatgptService.getJob(req.body);
 			res.status(DTO.statusCode).send(DTO);
 		} catch (error) {
 			next(error);
