@@ -1,15 +1,27 @@
 const { AppError } = require("../../common/errors/AppError");
 const { Configuration, OpenAIApi } = require("openai");
 module.exports = {
-	chat: async (message) => {
+	getJob: async (body) => {
 		try {
 			const configuration = new Configuration({
 				apiKey: process.env.OPENAI_API_KEY,
 			});
 			const openai = new OpenAIApi(configuration);
+			const prePromptText =
+				"liệt kê 5 tên nghề nghiệp (chỉ liệt kê tên nghề nghiệp, mỗi tên nghề nghiệp đặt trong 2 dấu @, không mô tả nghề nghiệp) với các yêu cầu sau:";
 			const completion = await openai.createChatCompletion({
 				model: "gpt-3.5-turbo",
-				messages: [{ role: "user", content: message }],
+				messages: [
+					{
+						role: "user",
+						content:
+							prePromptText +
+							JSON.stringify(body)
+								.replace("{", "")
+								.replace("}", "")
+								.replace('"', ""),
+					},
+				],
 			});
 			const completion_text = completion.data.choices[0].message.content;
 			return {
